@@ -7,6 +7,20 @@ body {
     font: 16px Georgia, serif;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+}
+
+
+
+a:hover {
+    color: #999;
+    font-weight: 700;
+}
+
+
 #page-wrap {
     margin: 2% auto;
     color: white;
@@ -52,4 +66,13 @@ nav li {
 .quiz_img {
     height: 150px;
     float: left;
+}
+
+footer li {
+    display: inline-block;
+    list-style: none;
+}
+
+footer li a {
+
 }
