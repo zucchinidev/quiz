@@ -1,9 +1,7 @@
-<%- include ../partials/layoutHeader.ejs %>
-  <form action="/quizes/answer" method="get">
-    <label>
-      Pregunta: <%= question %>.
-      <input type="text" name="answer"/>
-    </label>
-    <input type="submit" value="Enviar">
-  </form>
-<%- include ../partials/layoutFooter.ejs %>
+<form action="/quizes/answer" method="get">
+  <label>
+    Pregunta: <%= question %>.
+    <input type="text" name="answer"/>
+  </label>
+  <input type="submit" value="Enviar">
+</form>
