@@ -34,3 +34,17 @@ exports.answer = function(req, res) {
   }
   res.render('quizes/answer', response);
 };
+
+
+/**
+ * Método que gestiona las peticiones GET /author
+ * @param {{}} req objeto request
+ * @param {{}} res objeto request
+ */
+exports.author = function(req, res) {
+  'use strict';
+  var response = {
+    title: 'Andrea Zucchini'
+  };
+  res.render('author', response);
+};
