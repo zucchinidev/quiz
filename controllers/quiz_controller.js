@@ -12,10 +12,11 @@ var models = require('../models/models');
  */
 exports.load = function(req, res, next, quizId) {
   'use strict';
-  models.Quiz.findById(parseInt(req.params.quizId, 10))
+  models.Quiz.findById(parseInt(quizId, 10))
       .then(function(quiz) {
         if (quiz) {
           req.quiz = quiz;
+          next();
         } else {
           next(new Error('No existe la pregunta con id: ' + quizId));
         }
