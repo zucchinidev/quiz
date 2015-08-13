@@ -1,0 +1,9 @@
+<ul>
+  <% quizes.forEach(function(quiz) { %>
+    <li>
+      <a href="/quizes/<%= quiz.id %>">
+        <%= quiz.question %>
+      </a>
+    </li>
+  <% }); %>
+</ul>
