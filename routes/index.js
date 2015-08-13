@@ -11,8 +11,12 @@ router.get('/', function(req, res, next) {
   res.render('index', params);
 });
 
-router.get('/quizes/question', quizController.question);
-router.get('/quizes/answer', quizController.answer);
+
+// Autoload de preguntas, siempre que exista una ruta con el parámetro quizId
+router.params('quizId', quizController.load);
+router.get('/quizes', quizController.quizes);
+router.get('/quizes/:quizId(\\d+)', quizController.show);
+router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
 router.get('/author', quizController.author);
 
 module.exports = router;
