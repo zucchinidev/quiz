@@ -1,5 +1,7 @@
 /* global exports */
 
+var models = require('../models/models');
+
 
 /**
  * Método que gestiona las peticiones GET /quizes/question
@@ -9,11 +11,15 @@
 exports.question = function(req, res) {
   'use strict';
   var params = {
-      question: '¿Capital de Italia?',
       title: 'Sección de preguntas',
       header: 'Quiz el juego de preguntas'
   };
-  res.render('quizes/question', params);
+
+  models.Quiz.findAll()
+      .then(function(quiz) {
+        params.question = quiz[0].question;
+        res.render('quizes/question', params);
+      });
 };
 
 
@@ -29,10 +35,15 @@ exports.answer = function(req, res) {
     header: 'Quiz el juego de preguntas',
     answer: 'Incorrecta'
   };
-  if (req.query.answer.toLowerCase() === 'roma') {
-    response.answer = 'Correcta';
-  }
-  res.render('quizes/answer', response);
+
+  models.Quiz.findAll()
+      .then(function(quiz) {
+        if (req.query.answer.toLowerCase() === quiz[0].answer.toLowerCase()) {
+          response.answer = 'Correcta';
+        }
+        res.render('quizes/answer', response);
+      });
+
 };
 
 
