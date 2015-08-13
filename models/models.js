@@ -68,8 +68,15 @@ sequelize.sync() // sincronizar las definiciones de los modelos
           Quiz.create({
             question: '¿Capital de Italia?',
             answer: 'Roma'
-          }).success(function() {
-            console.log('Inicializando valores por defecto');
+          }).then(function() {
+            console.log('Insertando Roma');
+          });
+
+          Quiz.create({
+            question: '¿Capital de Portugal?',
+            answer: 'Lisboa'
+          }).then(function() {
+            console.log('Insertando Lisboa');
           });
         }
       });
