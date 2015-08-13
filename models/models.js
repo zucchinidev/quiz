@@ -36,7 +36,7 @@ var Sequelize = require('sequelize');
  * Para simular ésto en local lo que hago es crear el fichero .env que crea estas variables de entorno
  * pero con valores para sqlite.
  */
-var sequelize = new Sequelize(null, null, null, {
+var sequelize = new Sequelize(DBName, user, pwd, {
   dialect: dialect,
   protocol: protocol,
   port: port,
