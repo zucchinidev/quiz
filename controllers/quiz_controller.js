@@ -4,27 +4,47 @@ var models = require('../models/models');
 
 
 /**
- * Método que gestiona las peticiones GET /quizes/question
+ * Middelware que cargará la pregunta siempre y cuando se reciba un parámetro quizId
  * @param {{}} req objeto request
  * @param {{}} res objeto request
+ * @param {Function} next callback que se ejecutará en caso de error
+ * @param {number} quizId id de la pregunta
  */
-exports.question = function(req, res) {
+exports.load = function(req, res, next, quizId) {
   'use strict';
-  var params = {
-      title: 'Sección de preguntas',
-      header: 'Quiz el juego de preguntas'
-  };
-
-  models.Quiz.findAll()
+  models.Quiz.findById(parseInt(req.params.quizId, 10))
       .then(function(quiz) {
-        params.question = quiz[0].question;
-        res.render('quizes/question', params);
+        if (quiz) {
+          req.quiz = quiz;
+        } else {
+          next(new Error('No existe la pregunta con id: ' + quizId));
+        }
+      })
+      .catch(function(err) {
+        next(err);
       });
 };
 
 
 /**
- * Método que gestiona las peticiones GET /quizes/answer?answer=value
+ * Método que gestiona las peticiones GET /quizes/:quizId
+ * @param {{}} req objeto request
+ * @param {{}} res objeto request
+ */
+exports.show = function(req, res) {
+  'use strict';
+  var response = {
+    title: 'Sección de preguntas',
+    header: 'Quiz el juego de preguntas',
+    quiz: 'dale'
+  };
+  response.quiz = req.quiz;
+  res.render('quizes/show', response);
+};
+
+
+/**
+ * Método que gestiona las peticiones GET /quizes/:quizId/answer?answer=value
  * @param {{}} req objeto request
  * @param {{}} res objeto request
  */
@@ -35,15 +55,10 @@ exports.answer = function(req, res) {
     header: 'Quiz el juego de preguntas',
     answer: 'Incorrecta'
   };
-
-  models.Quiz.findAll()
-      .then(function(quiz) {
-        if (req.query.answer.toLowerCase() === quiz[0].answer.toLowerCase()) {
-          response.answer = 'Correcta';
-        }
-        res.render('quizes/answer', response);
-      });
-
+  if (req.query.answer.toLowerCase() === req.quiz.answer.toLowerCase()) {
+    response.answer = 'Correcta';
+  }
+  res.render('quizes/answer', response);
 };
 
 
@@ -58,4 +73,27 @@ exports.author = function(req, res) {
     title: 'Andrea Zucchini'
   };
   res.render('author', response);
+};
+
+
+/**
+ * Método para gestionar las peticiones GET /quizes, recoger todas las preguntas de la bbdd
+ * @param {{}} req objeto request
+ * @param {{}} res objeto request
+ */
+exports.quizes = function(req, res) {
+  'use strict';
+  var response = {
+    title: 'Listado de preguntas',
+    header: 'Quiz el juego de preguntas'
+  };
+
+  models.Quiz.findAll()
+      .then(function(quizes) {
+        response.quizes = quizes;
+        res.render('quizes/index', response);
+      })
+      .catch(function(err) {
+        next(err);
+      });
 };
