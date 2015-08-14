@@ -41,7 +41,6 @@ section > div {
 
 header, nav, section {
     background: #eee;
-    text-align: center;
 }
 
 footer {
@@ -50,11 +49,48 @@ footer {
 }
 
 nav li {
-    margin: 0px 10px 0px 0px;
-    /*width: 100%;*/
-    display: inline-block;
+    margin: 0 10px 0 0;
     display: inline-block;
 }
+
+footer li {
+    display: inline-block;
+    list-style: none;
+}
+
+fieldset {
+    border: solid 1px #ccc;
+    padding: 1rem;
+    margin-bottom: 1em;
+}
+
+button[type="submit"], input[type="text"] {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    border: solid 1px #ccc;
+    border-radius: 2px;
+}
+
+input[type="text"] {
+    padding-left: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+}
+
+button[type="submit"]  {
+    background-color: rgba(89, 153, 134, 0.72);
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+button[type="submit"]:hover  {
+    background-color: rgb(89, 153, 134);
+    cursor: pointer;
+}
+
 
 #ErrorMsgs {
     color: #f61;
@@ -70,11 +106,6 @@ nav li {
     float: left;
 }
 
-footer li {
-    display: inline-block;
-    list-style: none;
-}
-
-footer li a {
-
+.main h2 {
+    text-align: center;
 }
