@@ -78,7 +78,7 @@ exports.author = function(req, res) {
 
 
 /**
- * Método para gestionar las peticiones GET /quizes, recoger todas las preguntas de la bbdd
+ * Método para gestionar las peticiones GET /quizes?search=lalala, recoger todas las preguntas de la bbdd
  * @param {{}} req objeto request
  * @param {{}} res objeto request
  */
@@ -89,12 +89,28 @@ exports.quizes = function(req, res) {
     header: 'Quiz el juego de preguntas'
   };
 
-  models.Quiz.findAll()
+  var search = req.query.search;
+  var where = {};
+  if (search) {
+    search = search.replace(/\s+/g, '%');
+    where = {
+      where: {
+        question: {
+          like: '%' + search + '%'
+        }
+      },
+      order: [
+        ['question', 'ASC']
+      ]
+    };
+  }
+
+  models.Quiz.findAll(where)
       .then(function(quizes) {
         response.quizes = quizes;
         res.render('quizes/index', response);
       })
-      .catch(function(err) {
-        next(err);
+      .catch(function(error) {
+        res.send(500, error);
       });
 };
