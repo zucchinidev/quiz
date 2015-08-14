@@ -1,9 +1,32 @@
-<ul>
-  <% quizes.forEach(function(quiz) { %>
-    <li>
-      <a href="/quizes/<%= quiz.id %>">
-        <%= quiz.question %>
-      </a>
-    </li>
-  <% }); %>
-</ul>
+<article>
+  <header>
+    <h1>
+      Listado de adivinanzas
+    </h1>
+  </header>
+  <div class="wrapper">
+    <form action="/quizes" method="get">
+      <fieldset>
+        <legend>
+          Si no encuentras la que deseas puedes buscar entre el listado
+        </legend>
+        <label>
+          Inserta texto de búsqueda
+          <input type="text" name="search"/>
+        </label>
+        <button type="submit">
+          Buscar
+        </button>
+      </fieldset>
+    </form>
+    <ul>
+      <% quizes.forEach(function(quiz) { %>
+      <li>
+        <a href="/quizes/<%= quiz.id %>">
+          <%= quiz.question %>
+        </a>
+      </li>
+      <% }); %>
+    </ul>
+  </div>
+</article>
