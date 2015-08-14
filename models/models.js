@@ -61,8 +61,7 @@ exports.Quiz = Quiz;
 
 sequelize.sync() // sincronizar las definiciones de los modelos
     .then(function() {
-      // una vez creada la tabla
-      console.log('La tabla Quiz se ha creado con éxito');
+      'use strict';
       Quiz.count().then(function(count) {
         if (count === 0) {
           Quiz.create({
