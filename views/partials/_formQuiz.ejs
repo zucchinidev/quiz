@@ -10,6 +10,20 @@
   </label>
   <input type="text" id="answer" name="quiz[answer]" value="<%= quiz.answer %>"/>
 </div>
+
+<div>
+  <label for="theme">
+    Elige temática
+  </label>
+  <select id="theme" name="quiz[theme]">
+    <% options.forEach(function(option) { %>
+    <% var selected = (quiz.theme === option.value) ? 'selected' : '' %>
+    <option <%= selected%> value="<%= option.value %>">
+      <%= option.text %>
+    </option>
+    <% }) %>
+  </select>
+</div>
 <div>
   <p>
     <a href="/quizes" class="btn btn-cancel">

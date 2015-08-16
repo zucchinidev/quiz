@@ -22,6 +22,9 @@
     <ul class="question-list">
       <% quizes.forEach(function(quiz) { %>
       <li>
+        <span class="capitalize">
+          <%= quiz.theme %>
+        </span>
         <a href="/quizes/<%= quiz.id %>">
           <%= quiz.question %>
         </a>
