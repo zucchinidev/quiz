@@ -14,13 +14,23 @@ module.exports = function(squelize, DataTypes) {
     question: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: { msg: 'Debe insertar el contenido de la pregunta'}
+        notEmpty: { msg: 'Debe insertar el contenido de la pregunta' }
       }
     },
     answer: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: { msg: 'Debe insertar el contenido de la respuesta'}
+        notEmpty: { msg: 'Debe insertar el contenido de la respuesta' }
+      }
+    },
+    theme: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: 'Debe seleccionar temática' },
+        isIn: {
+          args: [['otro', 'humanidades', 'ciencia', 'tecnologia', 'ocio']],
+          msg: 'El valor seleccionado debe estar presente en el combo'
+        }
       }
     }
   });
