@@ -96,6 +96,11 @@ button[type="submit"]:hover  {
     cursor: pointer;
 }
 
+select {
+    padding: 0.5rem;
+    background-color: white;
+}
+
 
 .btn {
     border: solid 1px #ccc;
@@ -135,7 +140,7 @@ button[type="submit"]:hover  {
 
 .form-quiz label{
     display: block;
-    min-width: 200px;
+    min-width: 250px;
 }
 
 .question-list li {
@@ -143,13 +148,23 @@ button[type="submit"]:hover  {
     margin-bottom: 1rem;
 }
 
-.question-list a {
+
+.question-list span:first-child,
+.question-list a:nth-child(2){
+    word-break: break-all;
     display: inline-block;
 }
 
-.question-list a:first-child {
+.question-list a:nth-child(2) {
     min-width: 200px;
-    word-break: break-all;
+}
+
+.question-list span:first-child {
+    min-width: 100px;
+}
+
+.capitalize {
+    text-transform: capitalize;
 }
 
 #ErrorMsgs {
