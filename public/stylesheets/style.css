@@ -17,6 +17,10 @@ ul {
     list-style: none;
 }
 
+form {
+    margin-top: 2rem;
+}
+
 a:hover {
     color: #999;
     font-weight: 700;
@@ -60,23 +64,24 @@ footer li {
 
 fieldset {
     border: solid 1px #ccc;
-    padding: 1rem;
     margin-bottom: 1em;
+    padding: 1rem;
+}
+
+p {
+    margin-top: 1rem;
 }
 
 button[type="submit"], input[type="text"] {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
     border: solid 1px #ccc;
     border-radius: 2px;
+    padding: 0.5rem 1.5rem;
 }
 
 input[type="text"] {
-    padding-left: 5px;
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
+    padding-left: 5px;
 }
 
 button[type="submit"]  {
@@ -92,10 +97,94 @@ button[type="submit"]:hover  {
 }
 
 
+.btn {
+    border: solid 1px #ccc;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.5rem 1.5rem;
+}
+
+.btn-action {
+    background-color: rgba(89, 153, 134, 0.72);
+}
+
+.btn-cancel{
+    background-color: rgba(134, 150, 145, 0.72);
+}
+
+.btn-cancel:hover{
+    background-color: rgba(198, 206, 203, 0.72);
+    color: grey;
+}
+
+.alert {
+    color: #a94442;
+    margin-top: 1rem;
+}
+
+.alert-danger {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert p {
+    margin-top: 0;
+}
+
+.form-quiz label{
+    display: block;
+    min-width: 200px;
+}
+
+.question-list li {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.question-list a {
+    display: inline-block;
+}
+
+.question-list a:first-child {
+    min-width: 200px;
+    word-break: break-all;
+}
+
 #ErrorMsgs {
     color: #f61;
     font-size: smaller
 }
+
+#modal-delete-quiz {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.modal-content {
+    width: 400px;
+    background-color: #eee;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+    position: absolute;
+    top: 35%;
+    left:35%;
+    height: 200px;
+}
+
+
+.modal-content header {
+    margin-top: 2rem;
+}
+
 
 .right {
     float: right;
@@ -108,4 +197,9 @@ button[type="submit"]:hover  {
 
 .main h2 {
     text-align: center;
+}
+
+
+.text-center {
+    text-align: center;;
 }
