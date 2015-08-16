@@ -66,16 +66,18 @@ sequelize.sync() // sincronizar las definiciones de los modelos
         if (count === 0) {
           Quiz.create({
             question: '¿Capital de Italia?',
-            answer: 'Roma'
+            answer: 'Roma',
+            theme: 'otro'
           }).then(function() {
             console.log('Insertando Roma');
           });
 
           Quiz.create({
-            question: '¿Capital de Portugal?',
-            answer: 'Lisboa'
+            question: '¿Qué es NodeJS?',
+            answer: 'La bomba',
+            theme: 'tecnologia'
           }).then(function() {
-            console.log('Insertando Lisboa');
+            console.log('Insertando pregunta NodeJS');
           });
         }
       });
