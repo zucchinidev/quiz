@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <title><%= title %></title>
+    <title>
+
+    </title>
     <meta charset="utf-8">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet'
@@ -42,6 +44,15 @@
       </nav>
       <section class="main" id="s1">
         <%- body %>
+        <% if (typeof errors !== 'undefined' && errors.length) {%>
+          <% for (var i in errors) { %>
+            <div class="alert alert-danger">
+              <p>
+                <%= errors[i].message %>
+              </p>
+            </div>
+          <% } %>
+        <% } %>
       </section>
       <footer>
         <ul>

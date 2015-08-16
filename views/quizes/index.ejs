@@ -19,14 +19,46 @@
         </button>
       </fieldset>
     </form>
-    <ul>
+    <ul class="question-list">
       <% quizes.forEach(function(quiz) { %>
       <li>
         <a href="/quizes/<%= quiz.id %>">
           <%= quiz.question %>
         </a>
+        <a href="/quizes/<%= quiz.id %>/edit" class="btn btn-action">
+          Editar
+        </a>
+        <a href="#" data-id="<%= quiz.id %>" class="btn btn-action btn-delete">
+          Borrar
+        </a>
       </li>
       <% }); %>
     </ul>
+    <p>
+      <a href="/quizes/new" class="btn btn-action">
+        Crear preguntas
+      </a>
+    </p>
   </div>
 </article>
+<article id="modal-delete-quiz">
+  <div class="modal-content">
+    <header>
+      <h1 class="text-center">
+        ¿Desea borrar la pregunta:
+        '<span id="insert-text-question">
+
+      </span>'?
+      </h1>
+    </header>
+    <form id="form-delete-quiz" action="" method="post" class="text-center">
+        <button type="submit">
+          Borrar
+        </button>
+        <button class="btn btn-cancel" id="cancel-delete">
+          Cancelar
+        </button>
+    </form>
+  </div>
+</article>
+<script src="/javascripts/quiz.js"></script>

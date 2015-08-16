@@ -1,0 +1,12 @@
+<header>
+  <h1>
+    Editar una adivinanza
+  </h1>
+</header>
+<article>
+  <div>
+    <form class="form-quiz" action="/quizes/<%= quiz.id %>?_method=put" method="post">
+      <% include ../partials/formQuiz.ejs %>
+    </form>
+  </div>
+</article>

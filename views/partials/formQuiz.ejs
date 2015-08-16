@@ -1,0 +1,20 @@
+<div>
+  <label for="question">
+    Inserta pregunta
+  </label>
+  <input id="question" type="text" name="quiz[question]" value="<%= quiz.question %>"/>
+</div>
+<div>
+  <label for="answer">
+    Inserta respuesta
+  </label>
+  <input type="text" id="answer" name="quiz[answer]" value="<%= quiz.answer %>"/>
+</div>
+<div>
+  <p>
+    <a href="/quizes" class="btn btn-cancel">
+      Cancelar
+    </a>
+    <button type="submit">Guardar</button>
+  </p>
+</div>
