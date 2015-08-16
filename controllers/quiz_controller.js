@@ -35,9 +35,8 @@ exports.load = function(req, res, next, quizId) {
 exports.show = function(req, res) {
   'use strict';
   var response = {
-    title: 'Sección de preguntas',
-    header: 'Quiz el juego de preguntas',
-    quiz: 'dale'
+    title: 'Responde',
+    header: 'Quiz el juego de preguntas'
   };
   response.quiz = req.quiz;
   res.render('quizes/show', response);
@@ -98,12 +97,10 @@ exports.quizes = function(req, res) {
         question: {
           like: '%' + search + '%'
         }
-      },
-      order: [
-        ['question', 'ASC']
-      ]
+      }
     };
   }
+  where['order'] = 'question ASC';
 
   models.Quiz.findAll(where)
       .then(function(quizes) {
@@ -114,3 +111,122 @@ exports.quizes = function(req, res) {
         res.send(500, error);
       });
 };
+
+
+/**
+ * Método para gestionar las peticiones GET /quizes/new, formulario de creación de quiz
+ * Creación de objeto quiz a partir del model
+ * @param {{}} req objeto request
+ * @param {{}} res objeto request
+ */
+exports.new = function(req, res) {
+  'use strict';
+  var quiz = models.Quiz.build({
+    question: '',
+    answer: ''
+  });
+  var response = {
+    title: 'Crear pregunta',
+    header: 'Quiz el juego de preguntas',
+    quiz: quiz
+  };
+
+  res.render('quizes/new', response);
+};
+
+
+/**
+ * Método para gestionar las peticiones POST /quizes/create, formulario de creación de quiz
+ * Setear el objeto quiz con los parámetros recibidos
+ * @param {{}} req objeto request
+ * @param {{}} res objeto request
+ * @param {Function} next middelware que se ejecturá en caso de error
+ */
+exports.create = function(req, res, next) {
+  'use strict';
+  var quiz = models.Quiz.build(req.body.quiz);
+  quiz.validate()
+      .then(function(err) {
+        if (err) {
+          var response = {
+            title: 'Crear pregunta',
+            header: 'Quiz el juego de preguntas',
+            quiz: quiz,
+            errors: err.errors // matriz de errores de la validación del formulario
+          };
+          res.render('quizes/new', response);
+        } else {
+          // definimos que campos queremos guardar
+          quiz.save({
+            fields: [
+              'question', 'answer'
+            ]
+          }).then(function() {
+            res.redirect('/quizes');
+          }).catch(function(err) {
+            next(err);
+          });
+        }
+      });
+};
+
+
+/**
+ * Método para gestionar las peiticones GET /quizes/:quizId/edit, formulario de edición de quiz
+ * Se carga el objeto quiz con el autoload inicial
+ * @param {{}} req objeto request
+ * @param {{}} res objeto request
+ */
+exports.edit = function(req, res) {
+  'use strict';
+  res.render('quizes/edit', { quiz: req.quiz });
+};
+
+
+/**
+ * Método para gestionar las peiticones PUT /quizes/:quizId, formulario de edición de quiz
+ * Validad
+ * @param {{}} req objeto request
+ * @param {{}} res objeto request
+ * @param {Function} next
+ */
+exports.update = function(req, res, next) {
+  'use strict';
+  req.quiz.question = req.body.quiz.question;
+  req.quiz.answer = req.body.quiz.answer;
+  req.quiz.validate()
+      .then(function(err) {
+        if (err) {
+          res.render('quizes/edit', { quiz: req.quiz, errors: err.errors });
+        } else {
+          req.quiz
+              .save({fields: ['question', 'answer']})
+                .then(
+                  function() {
+                    res.redirect('/quizes');
+          });
+        }
+      }).catch(function(err) {
+        next(err);
+      });
+};
+
+
+/**
+ * Método que gestiona las peticiones DELETE /quizes/:quizId, formulario de borrador de quiz
+ * @param {{}} req objeto request
+ * @param {{}} res objeto request
+ * @param {Function} next
+ */
+exports.destroy = function(req, res, next) {
+  'use strict';
+  console.log(req.quiz);
+  req.quiz
+      .destroy()
+        .then(function() {
+          res.redirect('/quizes');
+        }).catch(function(err) {
+          next(err);
+        });
+};
+
