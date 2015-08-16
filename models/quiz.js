@@ -6,12 +6,22 @@
  * Se creará un fichero quiz.sqlite
  * @param {Sequelize} squelize
  * @param {DataTypes} DataTypes
- * @param {string} DataTypes.STRING
  * @return {*|{}|Model}
  */
 module.exports = function(squelize, DataTypes) {
+  'use strict';
   return squelize.define('Quiz', {
-    question: DataTypes.STRING,
-    answer: DataTypes.STRING
+    question: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: 'Debe insertar el contenido de la pregunta'}
+      }
+    },
+    answer: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: 'Debe insertar el contenido de la respuesta'}
+      }
+    }
   });
 };
