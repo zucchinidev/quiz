@@ -123,12 +123,14 @@ exports.new = function(req, res) {
   'use strict';
   var quiz = models.Quiz.build({
     question: '',
-    answer: ''
+    answer: '',
+    theme: ''
   });
   var response = {
     title: 'Crear pregunta',
     header: 'Quiz el juego de preguntas',
-    quiz: quiz
+    quiz: quiz,
+    options: createOptionsQuiz()
   };
 
   res.render('quizes/new', response);
@@ -152,6 +154,7 @@ exports.create = function(req, res, next) {
             title: 'Crear pregunta',
             header: 'Quiz el juego de preguntas',
             quiz: quiz,
+            options: createOptionsQuiz(),
             errors: err.errors // matriz de errores de la validación del formulario
           };
           res.render('quizes/new', response);
@@ -159,7 +162,7 @@ exports.create = function(req, res, next) {
           // definimos que campos queremos guardar
           quiz.save({
             fields: [
-              'question', 'answer'
+              'question', 'answer', 'theme'
             ]
           }).then(function() {
             res.redirect('/quizes');
@@ -179,7 +182,7 @@ exports.create = function(req, res, next) {
  */
 exports.edit = function(req, res) {
   'use strict';
-  res.render('quizes/edit', { quiz: req.quiz });
+  res.render('quizes/edit', { quiz: req.quiz, options: createOptionsQuiz() });
 };
 
 
@@ -194,13 +197,18 @@ exports.update = function(req, res, next) {
   'use strict';
   req.quiz.question = req.body.quiz.question;
   req.quiz.answer = req.body.quiz.answer;
+  req.quiz.theme = req.body.quiz.theme;
   req.quiz.validate()
       .then(function(err) {
         if (err) {
-          res.render('quizes/edit', { quiz: req.quiz, errors: err.errors });
+          res.render('quizes/edit', {
+            quiz: req.quiz,
+            errors: err.errors,
+            options: createOptionsQuiz()
+          });
         } else {
           req.quiz
-              .save({fields: ['question', 'answer']})
+              .save({fields: ['question', 'answer', 'theme']})
                 .then(
                   function() {
                     res.redirect('/quizes');
@@ -230,3 +238,19 @@ exports.destroy = function(req, res, next) {
         });
 };
 
+
+/**
+ * Función que retorna las temáticas posibles del model Quiz
+ * @return {[]}
+ */
+var createOptionsQuiz = function() {
+  'use strict';
+  return [
+    { value: '', text: 'Seleccionar temática'},
+    { value: 'ciencia', text: 'Ciencia'},
+    { value: 'humanidades', text: 'Humanidades'},
+    { value: 'ocio', text: 'Ocio'},
+    { value: 'otro', text: 'Otro'},
+    { value: 'tecnologia', text: 'Tecnología'}
+  ];
+};
