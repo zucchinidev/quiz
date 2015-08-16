@@ -14,7 +14,16 @@
   };
 
 
+  /**
+   * Definir prototipo de la clase Quiz
+   * @type {{init: Function, setEvents: Function, removeQuiz: Function}}
+   */
   Quiz.prototype = {
+
+
+    /**
+     * Método para inicializar la instancia
+     */
     init: function() {
       var that = this;
       that.modal = document.querySelector('#modal-delete-quiz');
@@ -25,6 +34,9 @@
     },
 
 
+    /**
+     * Setear eventos
+     */
     setEvents: function() {
       var that = this;
       if (that.buttons) {
@@ -38,6 +50,13 @@
         that.modal.style.display = 'none';
       });
     },
+
+
+    /**
+     * Lógica necesaria para borrar un quiz
+     * @param {Element} element
+     * @param {Event} event
+     */
     removeQuiz: function(element, event) {
       event.preventDefault();
       var that = this;
