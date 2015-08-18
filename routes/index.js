@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 router
     .get('/login', sessionController.new)
     .post('/login', sessionController.create)
-    .delete('/logout', sessionController.destroy); // cambiar get por delete
+    .delete('/logout', sessionController.destroy);
 
 
 /**
@@ -42,7 +42,10 @@ router.get('/author', quizController.author);
 /**
  * Rutas para acciones de commentController
  */
-router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
-router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
+router
+    .param('commentId', commentController.load)
+    .get('/quizes/:quizId(\\d+)/comments/new', commentController.new)
+    .post('/quizes/:quizId(\\d+)/comments', commentController.create)
+    .put  ('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish);
 
 module.exports = router;
