@@ -13,10 +13,21 @@
     Crear comentario
   </a>
 </p>
-<ul>
-  <% quiz.Comments.forEach(function(comment){  %>
-    <li class="well">
-      <%= comment.text %>
-    </li>
-  <% }); %>
-</ul>
+<% if (quiz.Comments && quiz.Comments.length > 0) {%>
+  <ul>
+    <% quiz.Comments.forEach(function(comment){  %>
+      <% if (comment.publish || session.user) {%>
+        <li class="well">
+          <%= comment.text %>
+          <% if (session.user && comment.publish === false) {%>
+            <form action="/quizes/<%= quiz.id%>/comments/<%= comment.id %>/publish?_method=put" method="post">
+              <button type="submit">
+                Publicar
+              </button>
+            </form>
+          <% } %>
+        </li>
+      <% } %>
+    <% }); %>
+  </ul>
+<% } %>
