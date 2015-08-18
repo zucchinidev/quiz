@@ -45,12 +45,33 @@ var sequelize = new Sequelize(DBName, user, pwd, {
   omitNull: true // solo para Postgres
 });
 
+/**
+ * Importamos la definición de la tabla Comment
+ * @type {Model}
+ */
+var Comment = sequelize.import(path.join(__dirname, 'comment'));
+
 
 /**
  * Importamos la definición de la tabla quiz
  * @type {Model}
  */
 var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
+
+
+/**
+ * Definimos relaciones
+ * Quiz 1 -> N Comment
+ */
+Comment.belongsTo(Quiz);
+Quiz.hasMany(Comment);
+
+
+/**
+ * Exportamos la definición de la tabla
+ * @type {Model}
+ */
+exports.Comment = Comment;
 
 
 /**
