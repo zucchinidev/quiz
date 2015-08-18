@@ -5,6 +5,7 @@ var models = require('../models/models');
 
 /**
  * Middelware que cargará la pregunta siempre y cuando se reciba un parámetro quizId
+ * Además incluirá un array con todos los comentarios asociados a la pregunta
  * @param {{}} req objeto request
  * @param {{}} res objeto request
  * @param {Function} next callback que se ejecutará en caso de error
@@ -12,18 +13,27 @@ var models = require('../models/models');
  */
 exports.load = function(req, res, next, quizId) {
   'use strict';
-  models.Quiz.findById(parseInt(quizId, 10))
-      .then(function(quiz) {
-        if (quiz) {
-          req.quiz = quiz;
-          next();
-        } else {
-          next(new Error('No existe la pregunta con id: ' + quizId));
-        }
-      })
-      .catch(function(err) {
-        next(err);
-      });
+  models.Quiz.find({
+    where: {
+      id: parseInt(quizId, 10)
+    },
+    include: [
+      {
+        model: models.Comment
+      }
+    ] // Incluimos un array de objetos Comment asociados a través del modelo
+  })
+  .then(function(quiz) {
+    if (quiz) {
+      req.quiz = quiz;
+      next();
+    } else {
+      next(new Error('No existe la pregunta con id: ' + quizId));
+    }
+  })
+  .catch(function(err) {
+    next(err);
+  });
 };
 
 
