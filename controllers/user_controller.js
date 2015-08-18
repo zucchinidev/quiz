@@ -20,7 +20,7 @@ var users = [
  * @param {string} password del usuario que desea autenticarse
  * @param {Function} callback que se va a ejecutar tras la comprobación.
  */
-exports.autenticar = function(login, password, callback) {
+exports.autenticate = function(login, password, callback) {
   'use strict';
   var user = users.filter(function(u) {
     return u.username === login && u.password === password;
