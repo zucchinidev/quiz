@@ -3,5 +3,20 @@
     Pregunta: <%= quiz.question %>.
     <input type="text" name="answer"/>
   </label>
-  <button type="submit">Enviar</button>
+  <button type="submit">Enviar respuesta</button>
 </form>
+<h3>
+  Comentarios:
+</h3>
+<p class="well">
+  <a class="btn btn-action" href="/quizes/<%= quiz.id %>/comments/new">
+    Crear comentario
+  </a>
+</p>
+<ul>
+  <% quiz.Comments.forEach(function(comment){  %>
+    <li class="well">
+      <%= comment.text %>
+    </li>
+  <% }); %>
+</ul>

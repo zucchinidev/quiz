@@ -1,0 +1,17 @@
+<p>
+  Pregunta: <%= quiz.question %>
+</p>
+<form action="/quizes/<%= comment.QuizId %>/comments" method="post">
+  <p>
+    <label for="insert-comment">
+      Inserta un comentario
+    </label>
+    <input type="text" name="comment[text]" id="insert-comment" value="<%= comment.text %>"/>
+  </p>
+
+  <p>
+    <button type="submit">
+      Crear Comentario
+    </button>
+  </p>
+</form>
