@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var quizController = require('../controllers/quiz_controller');
 var commentController = require('../controllers/comment_controller');
+var sessionController = require('../controllers/session_controller');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -11,6 +12,15 @@ router.get('/', function(req, res, next) {
   params.header = 'Bienvendio a Quiz';
   res.render('index', params);
 });
+
+
+/**
+ * Rutas para las acciones de sessionController
+ */
+router
+    .get('/login', sessionController.new)
+    .post('/login', sessionController.create)
+    .delete('/logout', sessionController.destroy); // cambiar get por delete
 
 
 /**
