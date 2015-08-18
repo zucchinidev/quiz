@@ -43,6 +43,7 @@ router.get('/author', quizController.author);
  * Rutas para acciones de commentController
  */
 router
+  // Autoload de comentarios, siempre que exista el parámetro commentId
     .param('commentId', commentController.load)
     .get('/quizes/:quizId(\\d+)/comments/new', commentController.new)
     .post('/quizes/:quizId(\\d+)/comments', commentController.create)
