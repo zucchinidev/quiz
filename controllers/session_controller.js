@@ -55,3 +55,20 @@ exports.destroy = function(req, res) {
   }
   res.redirect(req.session.redir.toString());
 };
+
+
+/**
+ * Permite interrumpir la ejecución de los middelware para la edición, creación y borrado de quizes
+ * Si no existe user en sesión, redirect a login.
+ * @param {{}} req objeto Request
+ * @param {{}} res objeto Response
+ * @param {Function} next pasar control al siguiente middelware
+ */
+exports.loginRequired = function(req, res, next) {
+  'use strict';
+  if (req.session) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+};
