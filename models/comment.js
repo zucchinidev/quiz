@@ -15,6 +15,10 @@ module.exports = function(squelize, DataTypes) {
       validate: {
         notEmpty: { msg: 'No es posible crear un comentario vacío'}
       }
+    },
+    publish: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   });
 };
