@@ -6,8 +6,8 @@ var models = require('../models/models');
 /**
  * Middelware que cargará la pregunta siempre y cuando se reciba un parámetro quizId
  * Además incluirá un array con todos los comentarios asociados a la pregunta
- * @param {{}} req objeto request
- * @param {{}} res objeto request
+ * @param {{}} req objeto Request
+ * @param {{}} res objeto Response
  * @param {Function} next callback que se ejecutará en caso de error
  * @param {number} quizId id de la pregunta
  */
@@ -39,8 +39,8 @@ exports.load = function(req, res, next, quizId) {
 
 /**
  * Método que gestiona las peticiones GET /quizes/:quizId
- * @param {{}} req objeto request
- * @param {{}} res objeto request
+ * @param {{}} req objeto Request
+ * @param {{}} res objeto Response
  */
 exports.show = function(req, res) {
   'use strict';
@@ -55,8 +55,8 @@ exports.show = function(req, res) {
 
 /**
  * Método que gestiona las peticiones GET /quizes/:quizId/answer?answer=value
- * @param {{}} req objeto request
- * @param {{}} res objeto request
+ * @param {{}} req objeto Request
+ * @param {{}} res objeto Response
  */
 exports.answer = function(req, res) {
   'use strict';
@@ -74,8 +74,8 @@ exports.answer = function(req, res) {
 
 /**
  * Método que gestiona las peticiones GET /author
- * @param {{}} req objeto request
- * @param {{}} res objeto request
+ * @param {{}} req objeto Request
+ * @param {{}} res objeto Response
  */
 exports.author = function(req, res) {
   'use strict';
@@ -88,8 +88,8 @@ exports.author = function(req, res) {
 
 /**
  * Método para gestionar las peticiones GET /quizes?search=lalala, recoger todas las preguntas de la bbdd
- * @param {{}} req objeto request
- * @param {{}} res objeto request
+ * @param {{}} req objeto Request
+ * @param {{}} res objeto Response
  */
 exports.quizes = function(req, res) {
   'use strict';
@@ -126,8 +126,8 @@ exports.quizes = function(req, res) {
 /**
  * Método para gestionar las peticiones GET /quizes/new, formulario de creación de quiz
  * Creación de objeto quiz a partir del model
- * @param {{}} req objeto request
- * @param {{}} res objeto request
+ * @param {{}} req objeto Request
+ * @param {{}} res objeto Response
  */
 exports.new = function(req, res) {
   'use strict';
@@ -150,8 +150,8 @@ exports.new = function(req, res) {
 /**
  * Método para gestionar las peticiones POST /quizes/create, formulario de creación de quiz
  * Setear el objeto quiz con los parámetros recibidos
- * @param {{}} req objeto request
- * @param {{}} res objeto request
+ * @param {{}} req objeto Request
+ * @param {{}} res objeto Response
  * @param {Function} next middelware que se ejecturá en caso de error
  */
 exports.create = function(req, res, next) {
@@ -187,8 +187,8 @@ exports.create = function(req, res, next) {
 /**
  * Método para gestionar las peiticones GET /quizes/:quizId/edit, formulario de edición de quiz
  * Se carga el objeto quiz con el autoload inicial
- * @param {{}} req objeto request
- * @param {{}} res objeto request
+ * @param {{}} req objeto Request
+ * @param {{}} res objeto Response
  */
 exports.edit = function(req, res) {
   'use strict';
@@ -199,8 +199,8 @@ exports.edit = function(req, res) {
 /**
  * Método para gestionar las peiticones PUT /quizes/:quizId, formulario de edición de quiz
  * Validad
- * @param {{}} req objeto request
- * @param {{}} res objeto request
+ * @param {{}} req objeto Request
+ * @param {{}} res objeto Response
  * @param {Function} next
  */
 exports.update = function(req, res, next) {
@@ -232,8 +232,8 @@ exports.update = function(req, res, next) {
 
 /**
  * Método que gestiona las peticiones DELETE /quizes/:quizId, formulario de borrador de quiz
- * @param {{}} req objeto request
- * @param {{}} res objeto request
+ * @param {{}} req objeto Request
+ * @param {{}} res objeto Response
  * @param {Function} next
  */
 exports.destroy = function(req, res, next) {
