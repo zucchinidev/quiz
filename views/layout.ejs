@@ -19,6 +19,20 @@
   <body>
     <div id="page-wrap">
       <header class="main">
+        <% if(!session.user) { %>
+        <a href="/login" class="btn btn-cancel pull-right">
+          Login
+        </a>
+        <% } else { %>
+        <form action="/logout?_method=delete" method="post" class="mt0 pull-right">
+          <p class="mt0">
+            <%= session.user.username %>
+            <button class="btn btn-cancel" type="submit">
+              Logout
+            </button>
+          </p>
+        </form>
+        <% } %>
         <h2>
           Quiz el juego de las preguntas
         </h2>
@@ -52,6 +66,16 @@
               </p>
             </div>
           <% } %>
+        <% } %>
+
+        <% if (typeof session.errors !== 'undefined' && session.length) {%>
+        <% for (var e in session.errors) { %>
+        <div class="alert alert-danger">
+          <p>
+            <%= session.errors[i].message %>
+          </p>
+        </div>
+        <% } %>
         <% } %>
       </section>
       <footer>
