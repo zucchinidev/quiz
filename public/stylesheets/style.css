@@ -167,11 +167,6 @@ select {
     text-transform: capitalize;
 }
 
-#ErrorMsgs {
-    color: #f61;
-    font-size: smaller
-}
-
 #modal-delete-quiz {
     position: absolute;
     bottom: 0;
@@ -218,3 +213,14 @@ select {
 .text-center {
     text-align: center;;
 }
+
+
+.well {
+    padding: 1rem;
+    border: solid 1px #ccc;
+    background-color: #D2CAC7;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+    margin-bottom: .5rem;
+    margin-top: .5rem;
+}
+
