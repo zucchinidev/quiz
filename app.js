@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var session = require('express-session');
 var partials = require('express-partials');
 var routes = require('./routes/index');
 
@@ -19,10 +20,29 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
+app.use(cookieParser('Semilla para la cookie'));
+app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+/**
+ * Middelware para almacenar la ruta anterior al login o logout
+ * y para hacer visible la sesión en las vistas.
+ */
+app.use(function(req, res, next) {
+
+  // guardar ruta anterior para redirigir tras login o logout
+  if (!req.path.match(/login|logout/)) {
+    req.session.redir = req.path;
+  }
+
+  // Hacer visible req.session en las vistas
+  res.locals.session = req.session;
+
+  // Pasamos control al siguiente middelware
+  next();
+});
 app.use('/', routes);
 
 // catch 404 and forward to error handler
