@@ -7,7 +7,7 @@ var models = require('../models/models');
  * @param {Function} next pasar control al siguiente middelware
  */
 exports.index = function(req, res, next) {
-  var totalComments = 0, totalQuizes = 0, totalQuizesWithComments = 0;
+  var totalComments = 0, totalQuizes = 0, totalQuizesWithComments = 0, totalQuizesNotComments = 0;
   models.Comment.count().then(function(comments) {
     totalComments = comments;
     models.Quiz.count().then(function(quizes) {
@@ -15,18 +15,23 @@ exports.index = function(req, res, next) {
       models.Quiz.findAll({
         include: [
           {
-            model: models.Comment,
-            as: 'Comments',
-            where: [ 'Comments.id is not null']
+            model: models.Comment
           }
         ]
       }).then(function(quizes) {
-        totalQuizesWithComments = quizes.length;
+        quizes.forEach(function(quiz) {
+          console.log(quiz);
+          if (quiz.Comments.length > 0) {
+            totalQuizesWithComments++;
+          } else {
+            totalQuizesNotComments++;
+          }
+        });
         res.render('statistic/index', {
           totalQuizes: totalQuizes,
           totalComments: totalComments,
           totalQuizesWithComments: totalQuizesWithComments,
-          totalQuizesNotComments: totalQuizes - totalQuizesWithComments
+          totalQuizesNotComments: totalQuizesNotComments
         });
       });
     });
