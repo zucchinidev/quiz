@@ -37,7 +37,6 @@ exports.new = function(req, res) {
     text: '',
     QuizId: req.quiz.id
   });
-  console.log(comment);
   res.render('comments/new', { comment: comment, quiz: req.quiz, errors: []});
 };
 
