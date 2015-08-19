@@ -34,8 +34,12 @@ exports.create = function(req, res) {
     }
 
     // Almacenamos el usuario actual en la sesión
-    req.session.user = { id: user.id, username: user.username };
+    req.session.user = { id: user.id, username: user.username, sessionDate: new Date() };
 
+    // Sesión expira en 2 minutos
+    var twoMin = 2 * 60 * 1000;
+    req.session.cookie.expires = new Date(Date.now() + twoMin);
+    console.log(req.session.cookie.expires);
     res.redirect(req.session.redir.toString());
   });
 };
