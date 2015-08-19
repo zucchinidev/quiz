@@ -31,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
  * y para hacer visible la sesión en las vistas.
  */
 app.use(function(req, res, next) {
+  'use strict';
 
   // guardar ruta anterior para redirigir tras login o logout
   if (!req.path.match(/login|logout/)) {
@@ -43,6 +44,11 @@ app.use(function(req, res, next) {
   // Pasamos control al siguiente middelware
   next();
 });
+
+
+/**
+ * Usamos las rutas definidas en routes
+ */
 app.use('/', routes);
 
 // catch 404 and forward to error handler
