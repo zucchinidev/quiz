@@ -238,7 +238,6 @@ exports.update = function(req, res, next) {
  */
 exports.destroy = function(req, res, next) {
   'use strict';
-  console.log(req.quiz);
   req.quiz
       .destroy()
         .then(function() {
